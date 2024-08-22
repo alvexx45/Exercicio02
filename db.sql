@@ -13,12 +13,13 @@
 --     CONNECTION LIMIT = -1
 --     IS_TEMPLATE = False;
 
--- CREATE TABLE usuario (
--- 	codigo SERIAL PRIMARY KEY,
--- 	nome TEXT NOT NULL,
--- 	senha TEXT NOT NULL,
--- 	sexo CHAR(1) NOT NULL
--- )
+CREATE TABLE songs (
+    codigo SERIAL PRIMARY KEY,
+    nome TEXT NOT NULL,
+    artista TEXT NOT NULL,
+    genero TEXT NOT NULL
+);
 
 
--- SELECT * FROM usuario;
+
+-- SELECT * FROM songs;

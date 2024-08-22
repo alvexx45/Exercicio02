@@ -16,49 +16,49 @@ public class DAO {
         return DriverManager.getConnection(URL, USER, PASSWORD);
     }
 
-    public void inserir(Usuario usuario) throws SQLException {
-        String sql = "INSERT INTO usuario (nome, senha, sexo) VALUES (?, ?, ?)";
+    public void inserir(Songs song) throws SQLException {
+        String sql = "INSERT INTO songs (nome, artista, genero) VALUES (?, ?, ?)";
         try (Connection conn = getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, usuario.getNome());
-            stmt.setString(2, usuario.getSenha());
-            stmt.setString(3, String.valueOf(usuario.getSexo()));
+            stmt.setString(1, song.getNome());
+            stmt.setString(2, song.getArtista());
+            stmt.setString(3, song.getGenero());
             stmt.executeUpdate();
         }
     }
 
-    public List<Usuario> listar() throws SQLException {
-        List<Usuario> usuarios = new ArrayList<>();
-        String sql = "SELECT * FROM usuario";
+    public List<Songs> listar() throws SQLException {
+        List<Songs> songsList = new ArrayList<>();
+        String sql = "SELECT * FROM songs";
         try (Connection conn = getConnection();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
-                Usuario usuario = new Usuario();
-                usuario.setCodigo(rs.getInt("codigo"));
-                usuario.setNome(rs.getString("nome"));
-                usuario.setSenha(rs.getString("senha"));
-                usuario.setSexo(rs.getString("sexo").charAt(0));
-                usuarios.add(usuario);
+                Songs song = new Songs();
+                song.setCodigo(rs.getInt("codigo"));
+                song.setNome(rs.getString("nome"));
+                song.setArtista(rs.getString("artista"));
+                song.setGenero(rs.getString("genero"));
+                songsList.add(song);
             }
         }
-        return usuarios;
+        return songsList;
     }
 
-    public void atualizar(Usuario usuario) throws SQLException {
-        String sql = "UPDATE usuario SET nome = ?, senha = ?, sexo = ? WHERE codigo = ?";
+    public void atualizar(Songs song) throws SQLException {
+        String sql = "UPDATE songs SET nome = ?, artista = ?, genero = ? WHERE codigo = ?";
         try (Connection conn = getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, usuario.getNome());
-            stmt.setString(2, usuario.getSenha());
-            stmt.setString(3, String.valueOf(usuario.getSexo()));
-            stmt.setInt(4, usuario.getCodigo());
+            stmt.setString(1, song.getNome());
+            stmt.setString(2, song.getArtista());
+            stmt.setString(3, song.getGenero());
+            stmt.setInt(4, song.getCodigo());
             stmt.executeUpdate();
         }
     }
 
     public void excluir(int codigo) throws SQLException {
-        String sql = "DELETE FROM usuario WHERE codigo = ?";
+        String sql = "DELETE FROM songs WHERE codigo = ?";
         try (Connection conn = getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, codigo);
